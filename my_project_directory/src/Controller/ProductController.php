@@ -17,14 +17,14 @@ class ProductController extends AbstractController
         ]);
     }
 
-    #[Route('/product/{id</d+>}', name: 'app_product_view')] // regex pour id qui force un int
-    public function viewProduct(int $id): Response
+    #[Route('/product/{id}', name: 'app_product_view')]
+    public function viewProduct(string $id): Response
     {
         return $this->render('product/viewProduct.html.twig', [
             'id' => $id
         ]);
     }
-    #[Route('/product/slug', name: 'app_slug_product')]
+    #[Route('/slug', name: 'app_slug_product')]
     public function slugProduct(
         Slugify $slugify,
     ): Response
