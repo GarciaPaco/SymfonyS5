@@ -27,6 +27,7 @@ class Actor
     private ?string $lastName = null;
 
     #[ORM\ManyToOne(inversedBy: 'actors')]
+    #[Groups(['actor:read'])]
     private ?Nationalite $actorOrigine = null;
 
     public function getId(): ?int
