@@ -5,11 +5,13 @@ namespace App\Entity;
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\NationaliteRepository;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: NationaliteRepository::class)]
 #[ApiResource(
-    normalizationContext: ['groups' => ['nationalite:read']],
+    normalizationContext: ['groups' => ['actor:read']],
 )]
 class Nationalite
 {
@@ -19,12 +21,11 @@ class Nationalite
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['nationalite:read'])]
+    #[Groups(['actor:read'])]
     private ?string $Origine = null;
 
     #[ORM\OneToMany(mappedBy: 'actorOrigine', targetEntity: Actor::class)]
-    private ?Actor $Actors = null;
-    private ArrayCollection $actors;
+    private Collection $actors;
 
     public function __construct()
     {
