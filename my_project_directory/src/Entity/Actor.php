@@ -10,6 +10,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\Entity(repositoryClass: ActorRepository::class)]
 #[ApiResource(
     normalizationContext: ['groups' => ['actor:read']],
+    denormalizationContext: ['groups' => ['actor:write']],
 )]
 class Actor
 {
@@ -19,15 +20,15 @@ class Actor
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['actor:read'])]
+    #[Groups(['actor:read', 'actor:write'])]
     private ?string $firstName = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['actor:read'])]
+    #[Groups(['actor:read', 'actor:write'])]
     private ?string $lastName = null;
 
-    #[ORM\ManyToOne(inversedBy: 'actors')]
-    #[Groups(['actor:read'])]
+    #[ORM\ManyToOne(cascade: ['persist'], inversedBy: 'actors')]
+    #[Groups(['actor:read','actor:write'])]
     private ?Nationalite $actorOrigine = null;
 
     public function getId(): ?int

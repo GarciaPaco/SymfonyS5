@@ -21,7 +21,7 @@ class Nationalite
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['actor:read'])]
+    #[Groups(['actor:read', 'actor:write'])]
     private ?string $Origine = null;
 
     #[ORM\OneToMany(mappedBy: 'actorOrigine', targetEntity: Actor::class)]
