@@ -5,14 +5,15 @@ namespace App\DataFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
-use App\Entity\Movie
-;
+use App\Entity\Movie;
+use App\Entity\User;
+
 
 class MovieFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
-        foreach (range(1, 10) as $i) {
+        foreach (range(1, 30) as $i) {
             $movie = new Movie();
             $movie->setTitle('Movie '.$i);
             $movie->setDescription('Description '.$i);
@@ -33,6 +34,7 @@ class MovieFixtures extends Fixture implements DependentFixtureInterface
     {
         return [
             ActorFixtures::class,
+            UsersFixtures::class
         ];
     }
 }
