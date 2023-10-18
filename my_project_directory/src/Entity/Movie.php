@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Doctrine\Orm\Filter\BooleanFilter;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
@@ -13,6 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: MovieRepository::class)]
 #[ApiResource()]
+#[ApiFilter(BooleanFilter::class, properties: ['online'])]
 class Movie
 {
     #[ORM\Id]
@@ -40,6 +42,9 @@ class Movie
 
     #[ORM\ManyToMany(targetEntity: Actor::class)]
     private Collection $actor;
+
+    #[ORM\Column]
+    private ?bool $online = null;
 
     public function __construct()
     {
@@ -131,6 +136,18 @@ class Movie
     public function removeActor(Actor $actor): static
     {
         $this->actor->removeElement($actor);
+
+        return $this;
+    }
+
+    public function isOnline(): ?bool
+    {
+        return $this->online;
+    }
+
+    public function setOnline(bool $online): static
+    {
+        $this->online = $online;
 
         return $this;
     }
