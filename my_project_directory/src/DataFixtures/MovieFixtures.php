@@ -18,7 +18,7 @@ class MovieFixtures extends Fixture implements DependentFixtureInterface
             $movie = new Movie();
             $movie->setTitle($faker->unique()->movie());
             $movie->setDescription($faker->unique()->overview());
-            $movie->setReleaseDate(new \DateTime());
+            $movie->setReleaseDate($faker->unique()->dateTimeBetween('-30 years', 'now'));
             $movie->setDuration(rand(60,180));
             $movie->setOnline(rand(0,1));
             $movie->setCategory($this->getReference('category_'.rand(1,5)));
