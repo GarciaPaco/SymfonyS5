@@ -14,6 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: MovieRepository::class)]
 #[ApiResource()]
+#[ApiFilter(SearchFilter::class, properties: ['title' => 'partial'])]
 #[ApiFilter(BooleanFilter::class, properties: ['online'])]
 class Movie
 {
@@ -27,7 +28,7 @@ class Movie
     #[ApiFilter(SearchFilter::class, strategy: 'partial')]
     private ?string $title = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 1255)]
     private ?string $description = null;
 
     #[ORM\Column(type: 'datetime', nullable:true)]
