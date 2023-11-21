@@ -5,24 +5,27 @@ namespace App\DataFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
-use App\Entity\Actor
-;
+use App\Entity\Actor;
+use Faker;
+
+
 
 class ActorFixtures extends Fixture implements DependentFixtureInterface
 {
 
+
     public function load(ObjectManager $manager): void
     {
+        $faker = Faker\Factory::create('fr_FR');
+        $faker->addProvider(new \Xylis\FakerCinema\Provider\Person($faker));
 
-        // Génère les données pour 10 acteurs avec un firstName et un lastName réaliste dans des variables $firstName et $lastName
-        $firstName = ['Jean', 'Pierre', 'Paul', 'Jacques', 'Marie', 'Julie', 'Julien', 'Jeanne', 'Pierre', 'Pauline'];
-        $lastName = ['Dupont', 'Durand', 'Duchemin', 'Duchesse', 'Duc', 'Ducroc', 'Ducrocq', 'Ducroq', 'Ducro', 'Ducros'];
-
-        // Génère moi 10 objets Actor fictifs dans un foreach
-        foreach (range(1, 9) as $i) {
+        foreach (range(1, 30) as $i) {
+            $fullname = $faker->unique()->actor();
+            $firstName = substr($fullname, 0, strpos($fullname, ' '));
+            $lastName = substr($fullname, strpos($fullname, ' ')+1);
             $actor = new Actor();
-            $actor->setFirstName($firstName[$i]);
-            $actor->setLastName($lastName[$i]);
+            $actor->setFirstName($firstName);
+            $actor->setLastName($lastName);
             $actor->setActorOrigine($this->getReference('nationalite_'.rand(1,9)));
             $manager->persist($actor); // "expose" l'objet à Doctrine pour qu'il soit enregistré en BDD
             $this->addReference('actor_'.$i, $actor); // permet de garder une référence à l'objet pour le récupérer dans une autre fixture
