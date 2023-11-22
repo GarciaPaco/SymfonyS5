@@ -7,9 +7,9 @@ name: Symfony
 
 on:
   push:
-    branches: [ "develop" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "develop" ]
+    branches: [ "main" ]
 
 permissions:
   contents: read
@@ -45,3 +45,15 @@ jobs:
       env:
         DATABASE_URL: sqlite:///%kernel.project_dir%/data/database.sqlite
       run: vendor/bin/phpunit
+      
+    - name: Run PHPUnit
+      run: vendor/bin/phpunit tests/
+
+    - name: Run PHP_CodeSniffer
+      run: vendor/bin/phpcs --standard=PSR2 src/
+
+    - name: Run PHPStan
+      run: vendor/bin/phpstan analyze src/
+
+    - name: Run PHPMD
+      run: vendor/bin/phpmd src/ text cleancode,codesize,controversial,design,naming
