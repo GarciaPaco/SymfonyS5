@@ -19,13 +19,12 @@ class MovieFixtures extends Fixture implements DependentFixtureInterface
             $movie->setTitle($faker->unique()->movie());
             $movie->setDescription($faker->unique()->overview());
             $movie->setReleaseDate($faker->unique()->dateTimeBetween('-30 years', 'now'));
-            $movie->setDuration(rand(60,180));
-            $movie->setOnline(rand(0,1));
-            $movie->setCategory($this->getReference('category_'.rand(1,5)));
-            $movie->addActor($this->getReference('actor_'.rand(1,9)));
+            $movie->setDuration(rand(60, 180));
+            $movie->setOnline(rand(0, 1));
+            $movie->setCategory($this->getReference('category_' . rand(1, 5)));
+            $movie->addActor($this->getReference('actor_' . rand(1, 9)));
             $manager->persist($movie); // "expose" l'objet à Doctrine pour qu'il soit enregistré en BDD
-            $this->addReference('movie_'.$i, $movie); // permet de garder une référence à l'objet pour le récupérer dans une autre fixture
-
+            $this->addReference('movie_' . $i, $movie); // permet de garder une référence à l'objet pour le récupérer dans une autre fixture
         }
         // $product = new Product();
         // $manager->persist($product);

@@ -78,7 +78,4 @@ class Nationalite
 
         return $this;
     }
-
-
 }
-

@@ -17,5 +17,4 @@ class SecurityController extends AbstractController
 //            'roles' => $user ? $user->getRoles() : null,
         ]);
     }
-
 }

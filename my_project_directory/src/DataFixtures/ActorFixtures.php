@@ -8,12 +8,8 @@ use Doctrine\Persistence\ObjectManager;
 use App\Entity\Actor;
 use Faker;
 
-
-
 class ActorFixtures extends Fixture implements DependentFixtureInterface
 {
-
-
     public function load(ObjectManager $manager): void
     {
         $faker = Faker\Factory::create('fr_FR');
@@ -22,14 +18,13 @@ class ActorFixtures extends Fixture implements DependentFixtureInterface
         foreach (range(1, 30) as $i) {
             $fullname = $faker->unique()->actor();
             $firstName = substr($fullname, 0, strpos($fullname, ' '));
-            $lastName = substr($fullname, strpos($fullname, ' ')+1);
+            $lastName = substr($fullname, strpos($fullname, ' ') + 1);
             $actor = new Actor();
             $actor->setFirstName($firstName);
             $actor->setLastName($lastName);
-            $actor->setActorOrigine($this->getReference('nationalite_'.rand(1,9)));
+            $actor->setActorOrigine($this->getReference('nationalite_' . rand(1, 9)));
             $manager->persist($actor); // "expose" l'objet à Doctrine pour qu'il soit enregistré en BDD
-            $this->addReference('actor_'.$i, $actor); // permet de garder une référence à l'objet pour le récupérer dans une autre fixture
-
+            $this->addReference('actor_' . $i, $actor); // permet de garder une référence à l'objet pour le récupérer dans une autre fixture
         }
 
         $manager->flush();

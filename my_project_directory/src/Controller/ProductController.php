@@ -27,9 +27,8 @@ class ProductController extends AbstractController
     #[Route('/slug', name: 'app_slug_product')]
     public function slugProduct(
         Slugify $slugify,
-    ): Response
+    ): Response {
 
-    {
         $texte = $slugify->generateSlug('Wôrķšƥáçè ~~sèťtïñğš~~');
         dd($texte);
         return $this->render('product/slugProduct', [

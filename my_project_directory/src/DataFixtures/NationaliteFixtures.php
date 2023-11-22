@@ -16,7 +16,7 @@ class NationaliteFixtures extends Fixture
             $nationalite = new Nationalite();
             $nationalite->setOrigine($pays[$i]);
             $manager->persist($nationalite);
-            $this->addReference('nationalite_'.$i, $nationalite);
+            $this->addReference('nationalite_' . $i, $nationalite);
         }
 
         $manager->flush();

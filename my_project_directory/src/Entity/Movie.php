@@ -152,5 +152,4 @@ class Movie
 
         return $this;
     }
-
 }
