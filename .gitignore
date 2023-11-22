@@ -1,9 +1,0 @@
-/.idea/.gitignore
-/my_project_directory/src/Controller/DemoController.php
-/.idea/deployment.xml
-/my_project_directory/templates/demo/index.html.twig
-/.idea/modules.xml
-/.idea/php.xml
-/.idea/phpunit.xml
-/.idea/SymfonyS5.iml
-/.idea/vcs.xml
