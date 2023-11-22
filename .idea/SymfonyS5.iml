@@ -3,10 +3,12 @@
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/my_project_directory/src" isTestSource="false" packagePrefix="App\" />
-      <sourceFolder url="file://$MODULE_DIR$/my_project_directory/tests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/my_project_directory/tests" isTestSource="true" packagePrefix="App\Tests\" />
+      <sourceFolder url="file://$MODULE_DIR$/my_project_directory/tests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" packagePrefix="App\Tests\" />
+      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" packagePrefix="App\" />
       <excludeFolder url="file://$MODULE_DIR$/my_project_directory/vendor/composer" />
       <excludeFolder url="file://$MODULE_DIR$/my_project_directory/vendor/doctrine/cache" />
       <excludeFolder url="file://$MODULE_DIR$/my_project_directory/vendor/doctrine/collections" />
@@ -157,6 +159,8 @@
       <excludeFolder url="file://$MODULE_DIR$/my_project_directory/vendor/xylis/faker-cinema-providers" />
       <excludeFolder url="file://$MODULE_DIR$/my_project_directory/vendor/phpstan/phpstan" />
       <excludeFolder url="file://$MODULE_DIR$/my_project_directory/vendor/squizlabs/php_codesniffer" />
+      <excludeFolder url="file://$MODULE_DIR$/public/bundles" />
+      <excludeFolder url="file://$MODULE_DIR$/var" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
