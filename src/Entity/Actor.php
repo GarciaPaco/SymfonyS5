@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     normalizationContext: ['groups' => ['actor:read']],
     denormalizationContext: ['groups' => ['actor:write']],
 )]
-#[ApiFilter(SearchFilter::class, properties: ['last_name' => 'partial'])]
+#[ApiFilter(SearchFilter::class, properties: ['lastName' => 'partial'])]
 
 class Actor
 {
@@ -27,7 +27,6 @@ class Actor
     #[ORM\Column(length: 255)]
     #[Groups(['actor:read', 'actor:write'])]
     #[Assert\NotBlank(message: 'Le prénom est obligatoire')]
-    #[ApiFilter(SearchFilter::class, strategy: 'partial')]
     private ?string $firstName = null;
 
     #[ORM\Column(length: 255)]
