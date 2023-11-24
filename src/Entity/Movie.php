@@ -25,7 +25,6 @@ class Movie
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message: 'Le titre est obligatoire')]
-    #[ApiFilter(SearchFilter::class, strategy: 'partial')]
     private ?string $title = null;
 
     #[ORM\Column(length: 1255)]
