@@ -57,3 +57,20 @@ jobs:
 
     #- name: Run PHPMD
      # run: vendor/bin/phpmd src/ text cleancode,codesize,controversial,design,naming
+
+     name: Deploy
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Demo LS on MMI VPS
+      uses: appleboy/ssh-action@master
+      with:
+        HOST: ${{ secrets.HOST }}
+        USERNAME: ${{ secrets.USERNAME }}
+        PORT: ${{ secrets.PORT }}
+        KEY: ${{ secrets.SSHKEY }}
+        script : ls
