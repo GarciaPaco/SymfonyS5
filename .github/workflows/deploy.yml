@@ -72,7 +72,7 @@ jobs:
         script: |
           cd public_html/democd/ 
           git clone https://github.com/GarciaPaco/SymfonyS5.git
-          cd demo-symfony
+          cd SymfonyS5
           git pull
           composer install
           php bin/console c:c
