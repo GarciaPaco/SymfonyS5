@@ -74,5 +74,6 @@ jobs:
           git clone https://github.com/GarciaPaco/SymfonyS5.git
           cd SymfonyS5
           git pull
+          composer update
           composer install
           php bin/console c:c
