@@ -69,5 +69,10 @@ jobs:
         USERNAME: ${{ secrets.USERNAME }}
         PORT: ${{ secrets.PORT }}
         KEY: ${{ secrets.SSHKEY }}
-        script : ls
-     
+        script: |
+          cd public_html/democd/ 
+          git clone https://github.com/GarciaPaco/SymfonyS5.git
+          cd demo-symfony
+          git pull
+          composer install
+          php bin/console c:c
