@@ -46,6 +46,9 @@ class Movie
     #[ORM\Column]
     private ?bool $online = null;
 
+    #[ORM\ManyToOne]
+    private ?MediaObject $media = null;
+
     public function __construct()
     {
         $this->actor = new ArrayCollection();
@@ -148,6 +151,18 @@ class Movie
     public function setOnline(bool $online): static
     {
         $this->online = $online;
+
+        return $this;
+    }
+
+    public function getMedia(): ?MediaObject
+    {
+        return $this->media;
+    }
+
+    public function setMedia(?MediaObject $media_id): static
+    {
+        $this->media = $media_id;
 
         return $this;
     }
