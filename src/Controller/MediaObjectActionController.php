@@ -2,7 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\MediaObject;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class MediaObjectActionController extends AbstractController
 {

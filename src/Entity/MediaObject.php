@@ -6,9 +6,11 @@ use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\OpenApi\Model;
 use App\Controller\MediaObjectActionController;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -18,11 +20,11 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 #[Vich\Uploadable]
 #[ORM\Entity]
 #[ApiResource(
-    normalizationContext: ['groups' => ['media_object:read']],
     types: ['https://schema.org/MediaObject'],
     operations: [
         new Get(),
         new GetCollection(),
+        new Patch(),
         new Post(
             controller: MediaObjectActionController::class,
             deserialize: false,
@@ -45,7 +47,8 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
                 )
             )
         )
-    ]
+    ],
+    normalizationContext: ['groups' => ['media_object:read']]
 )]
 class MediaObject
 {
@@ -53,7 +56,7 @@ class MediaObject
     private ?int $id = null;
 
     #[ApiProperty(types: ['https://schema.org/contentUrl'])]
-    #[Groups(['media_object:read'])]
+    #[Groups(['media_object:read', 'movie:read'])]
     public ?string $contentUrl = null;
 
     #[Vich\UploadableField(mapping: "media_object", fileNameProperty: "filePath")]
@@ -63,8 +66,19 @@ class MediaObject
     #[ORM\Column(nullable: true)]
     public ?string $filePath = null;
 
+    #[ORM\OneToMany(targetEntity: MediaObject::class, cascade: ['persist', 'remove'], mappedBy: 'movie')]
+    #[ORM\JoinColumn(nullable: true)]
+    private ?Collection $movie;
+
     public function getId(): ?int
     {
         return $this->id;
     }
+
+    public function getMedia(): ?Collection
+    {
+        return $this->media;
+    }
+
+
 }
