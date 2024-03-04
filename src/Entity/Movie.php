@@ -60,7 +60,8 @@ class Movie
     #[ORM\Column]
     private ?bool $online = null;
 
-    #[ORM\ManyToOne]
+    #[ORM\ManyToOne(targetEntity: MediaObject::class)]
+    #[Groups(['movie:read', 'movie:write'])]
     private ?MediaObject $media = null;
 
     public function __construct()
