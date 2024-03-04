@@ -10,10 +10,18 @@ use App\Repository\MovieRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: MovieRepository::class)]
-#[ApiResource()]
+#[ApiResource(
+    normalizationContext: [
+        'groups' => ['movie:read'],
+    ],
+    denormalizationContext: [
+        'groups' => ['movie:write'],
+    ],
+)]
 #[ApiFilter(SearchFilter::class, properties: ['title' => 'partial'])]
 #[ApiFilter(BooleanFilter::class, properties: ['online'])]
 class Movie
@@ -25,22 +33,28 @@ class Movie
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message: 'Le titre est obligatoire')]
+    #[Groups(['movie:read', 'movie:write', 'actor:read'])]
     private ?string $title = null;
 
     #[ORM\Column(length: 1255)]
+    #[Groups(['movie:read', 'movie:write'])]
     private ?string $description = null;
 
     #[ORM\Column(type: 'datetime', nullable:true)]
+    #[Groups(['movie:read', 'movie:write'])]
     private ?\DateTime $releaseDate = null;
 
     #[ORM\Column(length: 255)]
     #[ApiFilter(SearchFilter::class, strategy: 'partial')]
-    private ?string $duration = null;
+    #[Groups(['movie:read', 'movie:write'])]
+    private ?int $duration = null;
 
     #[ORM\ManyToOne(inversedBy: 'movies')]
+    #[Groups(['movie:read', 'movie:write'])]
     private ?Category $category = null;
 
-    #[ORM\ManyToMany(targetEntity: Actor::class)]
+    #[ORM\ManyToMany(targetEntity: Actor::class, inversedBy: 'movie')]
+    #[Groups(['movie:read', 'movie:write'])]
     private Collection $actor;
 
     #[ORM\Column]

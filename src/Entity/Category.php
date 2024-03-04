@@ -26,7 +26,7 @@ class Category
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['category:read'])]
+    #[Groups(['category:read', 'movie:read'])]
     #[Assert\NotBlank(message: 'Le nom est obligatoire')]
     private ?string $name = null;
 
