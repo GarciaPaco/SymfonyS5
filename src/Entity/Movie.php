@@ -23,7 +23,6 @@ use Symfony\Component\Validator\Constraints as Assert;
     ],
 )]
 #[ApiFilter(SearchFilter::class, properties: ['title' => 'partial'])]
-#[ApiFilter(BooleanFilter::class, properties: ['online'])]
 class Movie
 {
     #[ORM\Id]
@@ -57,8 +56,6 @@ class Movie
     #[Groups(['movie:read', 'movie:write'])]
     private Collection $actor;
 
-    #[ORM\Column]
-    private ?bool $online = null;
 
     #[ORM\ManyToOne(targetEntity: MediaObject::class)]
     #[Groups(['movie:read', 'movie:write'])]
@@ -154,18 +151,6 @@ class Movie
     public function removeActor(Actor $actor): static
     {
         $this->actor->removeElement($actor);
-
-        return $this;
-    }
-
-    public function isOnline(): ?bool
-    {
-        return $this->online;
-    }
-
-    public function setOnline(bool $online): static
-    {
-        $this->online = $online;
 
         return $this;
     }
